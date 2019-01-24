@@ -1,9 +1,16 @@
+# The class player for creating a new player
 
 class Player
-  #TO DO : la classe a 2 attr_reader, son nom et sa valeur (X ou O).
+	attr_reader :name, :value
 
-  
-  def initialize
-    #TO DO : doit régler son nom et sa valeur
+  def initialize(name, value)
+    @name = name.upcase
+    @value = value
+  end
+  def get
+  	print 'Nom du joueur 1 : '
+  	player1 = Player.new(gets.chomp.to_s, 1)
+  	print 'Nom du joueur 2 : '
+  	player2 = Player.new(gets.chomp.to_s, 2)
   end
 end
