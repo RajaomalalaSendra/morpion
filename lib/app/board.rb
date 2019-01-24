@@ -1,6 +1,6 @@
 require_relative "boardcase"
 class Board
-  def new_board
+  def self.new_board
     @a1 = " "
     @a2 = " "
     @a3 = " "
@@ -11,8 +11,7 @@ class Board
     @c2 = " "
     @c3 = " "
   end
-  def print_grid
-    boardcase = BoardCase.new
+  def self.print_grid
     puts
     puts "   1   2   3"
     puts "A  #{@a1} | #{@a2} | #{@a3} " 
@@ -21,6 +20,6 @@ class Board
     puts "  ---|---|---"
     puts "C  #{@c1} | #{@c2} | #{@c3} "
     puts
-    boardcase.check_for_winner
+    BoardCase.check_for_winner
   end
 end

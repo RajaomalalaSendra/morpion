@@ -10,10 +10,9 @@ class Game
   puts "To quit, enter q at any time                                 ".colorize(:color => :green, :background => :white)
  end
  def run_game
-    board = Board.new
-    board.new_board
+    Board.new_board
     while true
-      board.print_grid
+      Board.print_grid
       Player.user_one_turn
       Player.user_two_turn
     end

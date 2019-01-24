@@ -1,7 +1,7 @@
 # Creation of the broadcast
 require_relative "player"
 class BoardCase
-	def check_for_winner 
+	def self.check_for_winner 
 	Player.win_combos.each do |combos| 
 	    if combos[0] == "O" && combos[1] == "O" && combos[2] == "O"
 	      puts "#{:player1} win! Good job!"
