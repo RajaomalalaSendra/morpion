@@ -1,4 +1,6 @@
+require_relative "BoardCase"
 class Board
+  boardcase = BoardCase.new
   def new_board
     @a1 = " "
     @a2 = " "
@@ -19,6 +21,6 @@ class Board
     puts "  ---|---|---"
     puts "C  #{@c1} | #{@c2} | #{@c3} "
     puts
-    check_for_winner
+    boardcase.check_for_winner
   end
 end
