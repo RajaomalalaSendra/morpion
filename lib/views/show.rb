@@ -13,4 +13,9 @@ class Show
     @player2 = Player.new(gets.chomp.to_s, 2)
     return params = { player1: @player1, player2: @player2 }
   end
+  def show_iteraction_user
+    puts "Please choose a square:"
+    @user_choice = gets.chomp.downcase
+    return the_user_choice = { :user_choice => @user_choice }
+  end
 end
