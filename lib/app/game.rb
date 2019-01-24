@@ -56,13 +56,13 @@ def player_turn(player, board)
   while check_the_case == false
     our_array = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
     my_choice = ""
-    while our_array.include? my_choice 
+    while our_array.include?(my_choice) 
       my_choice = player.call_player
-      if !our_array.include? my_choice
+      if !our_array.include?(my_choice)
         p "Ce n'est pas une commande valide!"
       end
     end
-    check_the_case = board.check_case_value(my_choice, player.value)
+    check_the_case = board.check_case_value(my_choice, player.to_s)
   end
   board.display_board
   if board.check_victory(my_choice) == true

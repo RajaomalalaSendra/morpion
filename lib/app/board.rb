@@ -1,4 +1,5 @@
 require_relative "boardcase"
+require 'pry'
 class Board
 attr_accessor :group_of_case
 
@@ -14,7 +15,6 @@ attr_accessor :group_of_case
 
   # Affichage des cases
   def display_board
-    my_case = BoardCase.new
     # On observe chaque case du groupe de case
     # L'utilisateur rentre une id de case, print ou put la valeur selon l'id
     # X ou O selon la case.value qui a etait modifie dans check_case_value
@@ -50,36 +50,36 @@ attr_accessor :group_of_case
 
   # Pour la comparaison des cases, offset positif (pour l'id)
   def select_positive(my_case_to_check, offset)
-    (@group_of_case.select { |my_case| my_case.case == my_case_to_check + offset })[0].int
+    (@group_of_case.select { |my_case| my_case.case == my_case_to_check + offset })[0].to_s
   end
 
   # Pour la comparaison des cases, offset negatif (pour l'id)
   def select_negative(my_case_to_check, offset)
-    (@group_of_case.select { |my_case| my_case.case == my_case_to_check - offset })[0].int
+    (@group_of_case.select { |my_case| my_case.case == my_case_to_check - offset })[0].to_s
   end
 
   # Verifie si il y a une victoire
   def check_victory(my_case_to_check)
     result = 0
-    my_case_check_id = (@group_of_case.select { |my_case| my_case.case == my_case_to_check})[0].int
+    my_case_check_id = (@group_of_case.select { |my_case| my_case.case == my_case_to_check})[0].to_s
 
     # Verification des lignes
-    # case 1 / 4 / 7
-    comparaison_array = [1, 4, 7]
+    # case A1, B1, C1
+    comparaison_array = ["A1", "B1", "C1"]
     if comparaison_array.include?(my_case_to_check)
       if my_case_check_id == select_positive(my_case_to_check, 1) && my_case_check_id == select_positive(my_case_to_check, 2)
         result += 2
       end
     end
-    # Case 2 / 5 / 8
-    comparaison_array = [2, 5, 8]
+    # Case A2, B2, C2
+    comparaison_array = ["A2", "B2", "C2"]
     if comparaison_array.include?(my_case_to_check)
       if my_case_check_id == select_negative(my_case_to_check, 1) && my_case_check_id == select_positive(my_case_to_check, 1)
         result += 2
       end
     end
-    # Case 3 / 6 / 9
-    comparaison_array = [3, 6, 9]
+    # Case A1, B3, C3
+    comparaison_array = ["A3", "B3", "C3"]
     if comparaison_array.include?(my_case_to_check)
       if my_case_check_id == select_negative(my_case_to_check, 1) && my_case_check_id == select_negative(my_case_to_check, 2)
         result += 2
@@ -90,21 +90,21 @@ attr_accessor :group_of_case
 
     # Verification des colonnes
     # case 1 / 2 / 3
-    comparaison_array = [1, 2, 3]
+    comparaison_array = ["A1", "A2", "A3"]
     if comparaison_array.include?(my_case_to_check)
       if my_case_check_id == select_positive(my_case_to_check, 3) && my_case_check_id == select_positive(my_case_to_check, 6)
         result += 2
       end
     end
     # Case 4 / 5 / 6
-    comparaison_array = [4, 5, 6]
+    comparaison_array = ["B1", "B2", "B3"]
     if comparaison_array.include?(my_case_to_check)
       if my_case_check_id == select_negative(my_case_to_check, 3) && my_case_check_id == select_positive(my_case_to_check, 3)
         result += 2
       end
     end
     # Case 7 / 8 / 9
-    comparaison_array = [7, 8, 9]
+    comparaison_array = ["C1", "C2", "C3"]
     if comparaison_array.include?(my_case_to_check)
       if my_case_check_id == select_negative(my_case_to_check, 3) && my_case_check_id == select_negative(my_case_to_check, 6)
         result += 2
@@ -115,19 +115,19 @@ attr_accessor :group_of_case
 
     # Verification diagonale 159
     # Case 1
-    if my_case_to_check == 1
+    if my_case_to_check == "A1"
       if my_case_check_id == select_positive(my_case_to_check, 4) && my_case_check_id == select_positive(my_case_to_check, 8)
         result += 2
       end
     end
     # Case 5
-    if my_case_to_check == 5
+    if my_case_to_check == "B2"
       if my_case_check_id == select_negative(my_case_to_check, 4) && my_case_check_id == select_positive(my_case_to_check, 4)
         result += 2
       end
     end
     # Case 9
-    if my_case_to_check == 9
+    if my_case_to_check == "C3"
       if my_case_check_id == select_negative(my_case_to_check, 4) && my_case_check_id == select_negative(my_case_to_check, 8)
         result += 2
       end
@@ -137,19 +137,19 @@ attr_accessor :group_of_case
 
     # Verification diagonale 357
     # Case 3
-    if my_case_to_check == 3
+    if my_case_to_check == "A3"
       if my_case_check_id == select_positive(my_case_to_check, 2) && my_case_check_id == select_positive(my_case_to_check, 4)
         result += 2
       end
     end
     # Case 5
-    if my_case_to_check == 5
+    if my_case_to_check == "B2"
       if my_case_check_id == select_negative(my_case_to_check, 2) && my_case_check_id == select_positive(my_case_to_check, 2)
         result += 2
       end
     end
     # Case 7
-    if my_case_to_check == 7
+    if my_case_to_check == "C1"
       if my_case_check_id == select_negative(my_case_to_check, 2) && my_case_check_id == select_negative(my_case_to_check, 4)
         result += 2
       end
