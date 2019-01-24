@@ -8,7 +8,7 @@ class Player
     @name = name.capitalize
     @value = value
   end
-	def user_one_turn
+	def self.user_one_turn
 	  user_choice_hash = {"a1" => @a1,
 	                      "a2" => @a2,
 	                      "a3" => @a3,
@@ -35,7 +35,7 @@ class Player
 	  boardcase.check_for_winner
 	end
 
-	def user_two_turn
+	def self.user_two_turn
 	  user_choice_hash = {"a1" => @a1,
 	                      "a2" => @a2,
 	                      "a3" => @a3,
