@@ -1,29 +1,72 @@
+require 'colorize'
 require_relative "player"
 require_relative "board"
 
 class Game
-  attr_accessor :current_player, :status, :board, :array_of_players
-  #TO DO : la classe a plusieurs attr_accessor: le current_player (égal à un objet Player), le status (en cours, nul ou un objet Player s'il gagne), le Board et un array contenant les 2 joueurs.
+  attr_accessor :nb_tour
 
-  def initialize(players, board, status, current_player)
-    #TO DO : créé 2 joueurs, créé un board, met le status à "on going", défini un current_player
-    @array_of_players = Array.new[players]
-    @board = board
-    @status = status
-    @current_player = current_player
+  # On initialize la partie
+  def initialize_game
+    a = "*" * 100
+    puts "#{a}".colorize(:color => :red, :background => :white)
+    puts "#{a}".colorize(:color => :red, :background => :white)
+    puts'Bienvenu dans le Tic-Tac-Toe !                                                                      '.colorize(:color => :light_blue, :background => :white)
+    puts'Le plateau se décrit de la manière suivante :                                                       '.colorize(:color => :light_blue, :background => :white)
+    puts'                A1 | B1 | C1                                                                        '.colorize(:color => :green, :background => :white)
+    puts'                ------------                                                                        '.colorize(:color => :green, :background => :white)
+    puts'                A2 | B2 | C2                                                                        '.colorize(:color => :green, :background => :white)
+    puts'                ------------                                                                        '.colorize(:color => :green, :background => :white)
+    puts'                A3 | B3 | C3                                                                        '.colorize(:color => :green, :background => :white)
+    puts'A chaque tour, un des joueurs doit séléctionner la case ou il veut rentrer son symbole.             '.colorize(:color => :light_blue, :background => :white)
+    puts'Le premier joueur est les ronds, le second est les croix.                                           '.colorize(:color => :light_blue, :background => :white)
+    puts'Le jeu commence une fois que chaque joueur a inscrit son prénom.                                    '.colorize(:color => :light_blue, :background => :white)
+    puts"#{a}".colorize(:color => :red, :background => :white)
+    puts"#{a}".colorize(:color => :red, :background => :white)
+    @nb_tour = 1
   end
 
-  def turn
-    #TO DO : méthode faisant appelle aux méthodes des autres classes (notamment à l'instance de Board). Elle affiche le plateau, demande au joueur ce qu'il joue, vérifie si un joueur a gagné, passe au joueur suivant si la partie n'est pas finie.
-    
+  # On verifie si c'est la fin du jeu en fonction de : Numero de tour == 5
+  def check_end_game(number_game_turn)
+    true if number_game_turn == 5
   end
+end
+############################################################
 
-  def new_round
-    # TO DO : relance une partie en initialisant un nouveau board mais en gardant les mêmes joueurs.
+############################################################
+# Methode #
+# Defini un tour de jeu complet
+def game_turn(game, player1, player2, board)
+  1.upto(5) do |game_turn|
+    # Joueur 1
+    break if player_turn(player1, board) == true
+    # On check la fin du game
+    if game.check_end_game(game_turn) == true
+      p 'Egalité !'
+      break
+    end
+    # Joueur2
+    break if player_turn(player2, board) == true
   end
+  p 'Le jeu est fini!'
+end
 
-  def game_end
-    # TO DO : permet l'affichage de fin de partie quand un vainqueur est détecté ou si il y a match nul
+# Defini le tour d'un joueur
+def player_turn(player, board)
+  check_the_case = false
+  while check_the_case == false
+    our_array = ["A1", "A2", "A3", "B1", "B2", "B3", "C1", "C2", "C3"]
+    my_choice = ""
+    while our_array.include? my_choice 
+      my_choice = player.call_player
+      if !our_array.include? my_choice
+        p "Ce n'est pas une commande valide!"
+      end
+    end
+    check_the_case = board.check_case_value(my_choice, player.value)
+  end
+  board.display_board
+  if board.check_victory(my_choice) == true
+    p "#{player.name} a gagné!"
+    return true
   end    
-
 end

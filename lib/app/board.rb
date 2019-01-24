@@ -1,3 +1,4 @@
+require_relative "boardcase"
 class Board
 attr_accessor :group_of_case
 
@@ -13,20 +14,21 @@ attr_accessor :group_of_case
 
   # Affichage des cases
   def display_board
+    my_case = BoardCase.new
     # On observe chaque case du groupe de case
     # L'utilisateur rentre une id de case, print ou put la valeur selon l'id
     # X ou O selon la case.value qui a etait modifie dans check_case_value
     @group_of_case.each do |my_case|
-      case my_case.value
+      case my_case.int
       when 1
-        (my_case.id % 3).zero? ? (puts 'O') : (print 'O')
+        (my_case.case % 3).zero? ? (puts 'O') : (print 'O')
       when 2
-        (my_case.id % 3).zero? ? (puts 'X') : (print 'X')
+        (my_case.case % 3).zero? ? (puts 'X') : (print 'X')
       else
-        (my_case.id % 3).zero? ? (puts ' ') : (print ' ')
+        (my_case.case % 3).zero? ? (puts ' ') : (print ' ')
       end
-      (print ' | ') unless (my_case.id % 3).zero?
-      (puts '----------') if (my_case.id % 3).zero? && my_case.id != 9
+      (print ' | ') unless (my_case.case % 3).zero?
+      (puts '----------') if (my_case.case % 3).zero? && my_case.case != 9
     end
   end
 
@@ -34,9 +36,9 @@ attr_accessor :group_of_case
   # La valeur de la case peut prendre 1 ou 2 selon quel joueur joue
   def check_case_value(my_case_id, my_player)
     @group_of_case.map! do |my_case|
-      if my_case.id == my_case_id
-        if my_case.value.zero?
-          my_player == 1 ? (my_case.value = 1) : (my_case.value = 2)
+      if my_case.case == my_case_id
+        if my_case.int.zero?
+          my_player == 1 ? (my_case.int = 1) : (my_case.int = 2)
         else
           p 'La case est deja prise!'
           return false
@@ -48,18 +50,18 @@ attr_accessor :group_of_case
 
   # Pour la comparaison des cases, offset positif (pour l'id)
   def select_positive(my_case_to_check, offset)
-    (@group_of_case.select { |my_case| my_case.id == my_case_to_check + offset })[0].value
+    (@group_of_case.select { |my_case| my_case.case == my_case_to_check + offset })[0].int
   end
 
   # Pour la comparaison des cases, offset negatif (pour l'id)
   def select_negative(my_case_to_check, offset)
-    (@group_of_case.select { |my_case| my_case.id == my_case_to_check - offset })[0].value
+    (@group_of_case.select { |my_case| my_case.case == my_case_to_check - offset })[0].int
   end
 
   # Verifie si il y a une victoire
   def check_victory(my_case_to_check)
     result = 0
-    my_case_check_id = (@group_of_case.select { |my_case| my_case.id == my_case_to_check})[0].value
+    my_case_check_id = (@group_of_case.select { |my_case| my_case.case == my_case_to_check})[0].int
 
     # Verification des lignes
     # case 1 / 4 / 7
