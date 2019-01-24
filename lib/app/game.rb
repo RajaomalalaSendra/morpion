@@ -1,6 +1,6 @@
 require "colorize"
 class Game
-  attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3
+  attr_accessor :a1, :a2, :a3, :b1, :b2, :b3, :c1, :c2, :c3, :win_game
   @win_game = 
   [[@a1, @a2, @a3],
     [@a1, @b2, @c3],
@@ -23,6 +23,4 @@ class Game
       puts "#{player2} win! Good job!"
       exit
   end
-    
-  
 end

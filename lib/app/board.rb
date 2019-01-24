@@ -38,6 +38,15 @@ class Board
                       "c1" => @c1,
                       "c2" => @c2,
                       "c3" => @c3}
-  end   
+      user_choice_hash.each do |choice, square|
+      if user_choice == choice 
+        if check_validity(square)
+          square.sub!(" ", "X")
+          the_grid
+        end
+        elsif user_choice == "q" or user_choice == "quit"
+         exit
+       end
+     end
+end 
 end
- 
