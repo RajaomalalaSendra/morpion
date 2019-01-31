@@ -1,13 +1,21 @@
+require_relative "player"
+require_relative "board"
 
 class Game
+  attr_accessor :current_player, :status, :board, :array_of_players
   #TO DO : la classe a plusieurs attr_accessor: le current_player (égal à un objet Player), le status (en cours, nul ou un objet Player s'il gagne), le Board et un array contenant les 2 joueurs.
 
-  def initialize
+  def initialize(players, board, status, current_player)
     #TO DO : créé 2 joueurs, créé un board, met le status à "on going", défini un current_player
+    @array_of_players = Array.new[players]
+    @board = board
+    @status = status
+    @current_player = current_player
   end
 
   def turn
     #TO DO : méthode faisant appelle aux méthodes des autres classes (notamment à l'instance de Board). Elle affiche le plateau, demande au joueur ce qu'il joue, vérifie si un joueur a gagné, passe au joueur suivant si la partie n'est pas finie.
+    
   end
 
   def new_round

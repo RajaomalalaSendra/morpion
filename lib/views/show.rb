@@ -1,5 +1,4 @@
-
-
+require_relative "../app/board"
 
 class Show
 
